@@ -273,7 +273,27 @@ const char* vigenere(char* poruka)
 	return kriptovanaPoruka;
 
 }
+char* homophone(char* message, int* key) {
 
+
+	for (int i = 0; i < strlen(message); i++) {
+		if (message[i] == 'A' || message[i] == 'E' || message[i] == 'I' || message[i] == 'O' || message[i] == 'U') {
+			int randomInteger = rand();
+			// Scale the random integer to a floating-point number in the range [0, 1)
+			double randomFloat = (double)randomInteger / RAND_MAX;
+			if (randomFloat >= 0.5) {
+				message[i] = key[message[i] - 'A'] % 100; //higher portion
+			}
+			else {
+				message[i] = key[message[i] - 'A'] / 100; //lower portion
+			}
+		}
+		else {
+			message[i] = key[message[i] - 'A']; //getting a number between 0 and 25 and mapping key value to it
+		}
+	}
+	return message;
+}
 const char* plejfer(char* poruka)
 {
 	//pozicija slova u redovima i kolonama matrice
